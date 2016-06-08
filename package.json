@@ -1,0 +1,22 @@
+{
+  "name": "how-many-friends",
+  "version": "1.0.0",
+  "description": "A slack integration to remind Jim he has no friends",
+  "author": "",
+  "main": "how-many-friends.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perksadam/how-many-friends.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/perksadam/how-many-friends/issues"
+  },
+  "homepage": "https://github.com/perksadam/how-many-friends#readme",
+  "dependencies": {
+    "request-promise": "^3.0.0"
+  }
+}

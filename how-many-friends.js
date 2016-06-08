@@ -2,6 +2,7 @@
 var http = require('http');
 var url = require('url');
 var querystring = require('querystring');
+var rp = require('request-promise');
 
 var giphyUrl =  "http://tv.giphy.com/v1/gifs/tv?api_key=dc6zaTOxFJmzC&tag={tag}";
 
@@ -28,26 +29,22 @@ function handleRequest(req, res){
 function getFriendCount(username, callback){
     username = username.toLowerCase();
     if(username == "jim" || username == "jeverett" || username == "@jeverett" || username == "everett"){
-        return getGifUrl("lonely", callback);
+        return getGifUrl("lonely", callback).then(function(url){
+            return callback(url);
+        });
     } else {
         return callback("too many to count");
     }
 }
 
-function getGifUrl(tag, callback){
+function getGifUrl(tag){
     var requestUrl = giphyUrl.replace('{tag}', tag);
-    http.get(requestUrl, function(response){
-        response.setEncoding('utf8');
-        var body = '';
-        response.on('data', function(data){
-            body += data;
-        });
-        response.on('end', function(){
-            var responseObject = JSON.parse(body);
-            if(responseObject.data.url){
-                callback(responseObject.data.url);
-            }
-        });
+
+    return rp({
+        uri: requestUrl,
+        json: true
+    }).then(function(response){
+        return response.data.url;
     });
 }
 
